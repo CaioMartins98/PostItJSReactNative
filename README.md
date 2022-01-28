@@ -24,13 +24,13 @@
   <!-- <img alt="Github stars" src="https://img.shields.io/github/stars/{{YOUR_GITHUB_USERNAME}}/postappjs?color=56BEB8" /> -->
 </p>
 
-<!-- Status -->
+ Status
 
-<!-- <h4 align="center"> 
+ <h4 align="center"> 
 	🚧  Postappjs 🚀 Under construction...  🚧
 </h4> 
 
-<hr> -->
+<hr>
 
 <p align="center">
   <a href="#dart-about">About</a> &#xa0; | &#xa0; 
@@ -46,7 +46,7 @@
 
 ## :dart: About ##
 
-Describe your project
+Aplicativo de post de textos, lembretes e afins. Feito com React Native em JavaScript, contando com a biblioteca styled-components para a estilização e arquitetura Flux com Redux para o controle de estado.
 
 ## :sparkles: Features ##
 
@@ -58,11 +58,10 @@ Describe your project
 
 The following tools were used in this project:
 
-- [Expo](https://expo.io/)
-- [Node.js](https://nodejs.org/en/)
-- [React](https://pt-br.reactjs.org/)
 - [React Native](https://reactnative.dev/)
-- [TypeScript](https://www.typescriptlang.org/)
+- [JavaScript](https://www.javascript.com/)
+- [styled-components](https://styled-components.com/)
+- [Redux](https://redux.js.org/)
 
 ## :white_check_mark: Requirements ##
 
@@ -72,7 +71,7 @@ Before starting :checkered_flag:, you need to have [Git](https://git-scm.com) an
 
 ```bash
 # Clone this project
-$ git clone https://github.com/{{YOUR_GITHUB_USERNAME}}/postappjs
+$ git clone https://github.com/CaioMartins98/postappjs
 
 # Access
 $ cd postappjs
@@ -91,7 +90,7 @@ $ yarn start
 This project is under license from MIT. For more details, see the [LICENSE](LICENSE.md) file.
 
 
-Made with :heart: by <a href="https://github.com/{{YOUR_GITHUB_USERNAME}}" target="_blank">{{YOUR_NAME}}</a>
+Made with :heart: by <a href="https://github.com/CaioMartins98" target="_blank">Caio Martins</a>
 
 &#xa0;
 
