@@ -8,11 +8,11 @@ import FeatherIcon from 'react-native-vector-icons/Feather';
 import Posts from '../../components/Posts';
 const Dashboard = () => {
   const posts = [1];
+  
   const navigation = useNavigation();
   return (
     <Container>
-      {posts.length >= 1 ? <Posts /> : <EmptyPost />}
-
+      <Posts /> 
       <ButtonContainer>
         <ButtonField
           onPress={() => {

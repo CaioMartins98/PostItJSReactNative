@@ -27,7 +27,7 @@ const Preload = () => {
         <DevBy>Developed by Caio Martins</DevBy>
       </DevByContainer>
     
-    </Container>
+    </Container> 
   );
 };
 

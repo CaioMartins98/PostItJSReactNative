@@ -16,6 +16,7 @@ export const ContainerNewPost = styled.View`
     background: #555;
     height: 560px;
     width: 340px;
+    border-radius: 8px;
 `
 
 export const NewPostTitle = styled.Text`
@@ -24,14 +25,15 @@ export const NewPostTitle = styled.Text`
     font-size: 24px;
     font-family: 'Poppins-Bold';
     padding: 20px 0 0 90px;
-    margin-bottom: 120px;
+    margin-bottom: 100px;
     
 `
 export const TitleLabel = styled.Text`
     color:#fff;
     font-size: 20px;
     font-family: 'Poppins-Bold';
-    margin-left: 10px;
+    
+    padding: 10px 0px 0px 10px;
 `
 
 export const InputTitleField = styled(TextInput)`
@@ -43,12 +45,14 @@ export const InputTitleField = styled(TextInput)`
     font-size: 18px;
     margin-bottom: 50px;
     margin-left: 10px;
+    border-radius: 8px;
 `
 export const DescriptionLabel = styled.Text`
     color:#fff;
     font-size: 20px;
     font-family: 'Poppins-Bold';
-    margin-left: 10px;
+   
+    padding: 10px 0px 0px 10px;
     /* margin-top: 40px; */
 `
 
@@ -61,6 +65,8 @@ export const InputDescriptionField = styled(TextInput)`
     font-size: 18px;
     margin-bottom: 50px;
     margin-left: 10px;
+    border-radius: 8px;
+ 
 `
 
 export const ButtonContainer = styled.View`
