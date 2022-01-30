@@ -8,13 +8,15 @@ export const Container = styled.View`
 
 export const AnimationContainer = styled.View`
   height: 200px;
-  width: 350px;
-  margin-bottom: 40px;
+  width: 360px;
+  margin-bottom: 80px;
+  margin-top:125px;
 `;
 
 export const Description = styled.Text`
   font-family: 'Poppins-Regular';
-  font-size: 18px;
+  font-size: 20px;
+  color: #fff;
   text-align: center;
-  
+
 `;

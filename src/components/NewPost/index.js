@@ -1,11 +1,5 @@
-import { useNavigation } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { Text, View } from 'react-native';
-
 import FeatherIcon from 'react-native-vector-icons/Feather';
-import { useDispatch } from 'react-redux';
-import { addText, addTitle } from '../../redux/userSlice';
-import dateCurrentFormat from '../../utils/dateCurentFormat';
 import {
   ButtonContainer,
   ButtonField,
@@ -19,28 +13,7 @@ import {
   TitleLabel,
 } from './styles';
 
-const NewPost = () => {
-  const navigation = useNavigation();
-  const [descriptionValue, setDescriptionValue] = useState('');
-  const [titleValue, setTitleValue] = useState('');
-
-  const dispatch = useDispatch();
-
-  const handleSubmit = () => {
-    const text = descriptionValue;
-    const title = titleValue;
-    dispatch(addTitle(title));
-    dispatch(addText(text));
-    navigation.navigate('Dashboard');
-  };
-
-  const handleChangeTitle = (event) => {
-    setTitleValue(event);
-  };
-  const handleChangeText = (event) => {
-    setDescriptionValue(event);
-  };
-
+const NewPost = ({ handleChangeTitle, handleChangeText, handleSubmit }) => {
   return (
     <Container>
       <ContainerNewPost>

@@ -33,3 +33,20 @@ export const ButtonText = styled.Text`
   margin-left: 100px;
   /* position: absolute; */
 `;
+
+
+export const ErrorTitle= styled.Text`
+  color: red;
+  font-size: 12px;
+  font-family: 'Poppins-Regular';
+  /* width: 50px; */
+  margin-bottom: 10px;
+`;
+
+export const ErrorText = styled.Text`
+  color: red;
+  font-size: 12px;
+  font-family: 'Poppins-Regular';
+  /* width: 50px; */
+  margin-bottom: 5px;
+`;

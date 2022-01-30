@@ -34,6 +34,7 @@ const Login = () => {
     const nameUser = inputValue;
     dispatch(changeUser(nameUser));
     validate();
+
   };
 
   const validate = () => {

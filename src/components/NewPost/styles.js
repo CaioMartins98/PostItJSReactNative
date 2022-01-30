@@ -13,7 +13,7 @@ export const ContainerNewPost = styled.View`
     justify-content: flex-start;
     border: 2px solid #5227c7;
     border-radius: 4px;
-    background: #555;
+    background: #444;
     height: 560px;
     width: 340px;
     border-radius: 8px;

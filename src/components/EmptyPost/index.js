@@ -1,10 +1,8 @@
 import React from 'react';
-import { View } from 'react-native';
-
 import LottieView from 'lottie-react-native';
-import { AnimationContainer, Container } from './styles';
+import { AnimationContainer, Container, Description } from './styles';
 import EmptyAnimation from '../../assets/EmptyAnimation.json';
-import { Description } from '../../pages/Login/styles';
+
 const EmptyPost = () => {
   return (
     <Container>
@@ -18,7 +16,7 @@ const EmptyPost = () => {
         />
       </AnimationContainer>
       <Description>
-        Sua plataforma de posts está vazia! Adicione o primeiro!
+        Sua plataforma de posts está vazia!
       </Description>
     </Container>
   );
