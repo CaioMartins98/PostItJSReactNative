@@ -5,11 +5,13 @@ export const slice = createSlice({
   text: '',
   title: '',
   id: 0,
+  posts: [],
   initialState: {
     name: '',
     text: '',
     title: '',
-    id: 0
+    id: 0,
+    posts: [],
   },
   reducers: {
     changeUser(state, { payload }) {
@@ -21,13 +23,18 @@ export const slice = createSlice({
     addTitle(state, { payload }) {
       return { ...state, title: payload };
     },
-    addPost(state,{payload}){
-        return [{...state, id: payload}];
-    }
+    addPost(state, { payload }) {
+      return { ...state, posts: payload };
+    },
+    removePost(state, { payload }) {
+      const upPost = state.posts.filter((post) => post.id !== payload);
+      // if(upPost >= 0 ) state.posts.splice(upPost, 1);
+      return { ...state, posts: upPost };
+    },
   },
 });
 
-export const { changeUser, addText, addTitle, addPost } = slice.actions;
+export const { changeUser, addText, addTitle, addPost, removePost } = slice.actions;
 
 export const selectUser = (state) => state.user;
 export const selectTitle = (state) => state.title;

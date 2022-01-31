@@ -45,13 +45,13 @@ export const InputField = styled(TextInput)`
   color: #fff;
   font-family: 'Poppins-Regular';
   font-size: 20px;
-  
+  border-radius: 8px;
 `;
 
 export const ButtonLogin = styled.TouchableOpacity`
   border-radius: 8px;
   background-color: #5227c7;
-
+margin-top: 30px;
   justify-content: center;
   align-items: center;
   padding: 10px;

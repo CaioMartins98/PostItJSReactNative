@@ -1,15 +1,20 @@
 import React, { useState } from 'react';
-import { ScrollView, View } from 'react-native';
+import { Button, ScrollView, Text, View } from 'react-native';
 import AntIcon from 'react-native-vector-icons/AntDesign';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { removePost } from '../../redux/userSlice';
 import dateCurrentFormat from '../../utils/dateCurentFormat';
 import EmptyPost from '../EmptyPost';
+// import FontIcon from 'react-native-vector-icons/FontAwesome'
 import {
   Container,
   ContainerPostDate,
   ContainerPostText,
   ContainerPostUser,
+  ContainerScroll,
   Divider,
+  HeaderPost,
+  IconContainer,
   InformationContainer,
   Post,
   PostContainer,
@@ -21,47 +26,53 @@ import {
 } from './styles';
 
 //.trim().split(' ', 1)
-const Posts = ({ nameP, textP, titleP }) => {
-  const date = dateCurrentFormat();
-  const { text } = useSelector((state) => state.text);
-  const { title } = useSelector((state) => state.title);
-  const { name } = useSelector((state) => state.user);
+const Posts = ({ postData }) => {
+  
+  const dispatch = useDispatch();
 
- 
+  const handleRemove = (id) => {
+    dispatch(removePost(id));
+  };
+
+  console.log(postData, 'postDate');
+
   return (
     <Container>
-      <PostContainer>
-        {/* <PostList
-          data={posts}
-          keyExtractor={(item) => item.id}
-          ListEmptyComponent={<EmptyPost />}
-          ListFooterComponent={<View />}
-          ListFooterComponentStyle={{
-            height: 80,
-          }}
-          render={({ item }) => ( */}
-        <Post>
-          <PostTitle>{title}</PostTitle>
-          <ContainerPostText>
-            <ScrollView>
-              <PostText>{text}</PostText>
-            </ScrollView>
-          </ContainerPostText>
-          <Divider />
-          <InformationContainer>
-            <ContainerPostDate>
-              <AntIcon name="calendar" color={'#fff'} size={20} />
-              <PostDate>{date}</PostDate>
-            </ContainerPostDate>
-            <ContainerPostUser>
-              <PostUser>{name}</PostUser>
-              <AntIcon name="user" color="#fff" size={20} />
-            </ContainerPostUser>
-          </InformationContainer>
-        </Post>
-        {/* )}
-        ></PostList> */}
-      </PostContainer>
+      
+        <PostContainer>
+          <Post>
+            <HeaderPost>
+              <PostTitle>{postData.titlePost}</PostTitle>
+              <IconContainer>
+                <AntIcon
+                  onPress={() => {
+                    handleRemove(postData.id);
+                  }}
+                  name="close"
+                  color="#fff"
+                  size={20}
+                />
+              </IconContainer>
+            </HeaderPost>
+            <ContainerPostText>
+              <ScrollView>
+                <PostText>{postData.textPost}</PostText>
+              </ScrollView>
+            </ContainerPostText>
+            <Divider />
+            <InformationContainer>
+              <ContainerPostDate>
+                <AntIcon name="calendar" color={'#fff'} size={20} />
+                <PostDate>{postData.datePost}</PostDate>
+              </ContainerPostDate>
+              <ContainerPostUser>
+                <PostUser>{postData.namePost.trim().split(' ', 1)}</PostUser>
+                <AntIcon name="user" color="#fff" size={20} />
+              </ContainerPostUser>
+            </InformationContainer>
+          </Post>
+        </PostContainer>
+ 
     </Container>
   );
 };

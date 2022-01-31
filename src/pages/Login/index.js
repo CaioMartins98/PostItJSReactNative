@@ -18,30 +18,33 @@ import {
 import { useDispatch } from 'react-redux';
 import { changeUser } from '../../redux/userSlice';
 import { View } from 'react-native';
+import { Snackbar } from 'react-native-paper';
 
 const Login = () => {
   const navigation = useNavigation();
   const [inputValue, setInputValue] = useState('');
-  const [messageUser, setMessageUser] = useState('');
+  const [error, setError] = useState({
+    isVisible: false,
+    message: '',
+  });
   const dispatch = useDispatch();
-  
+
   const handleChange = (event) => {
     setInputValue(event);
-    setMessageUser('');
+    setError({ isVisible: false });
   };
 
   const handleSubmit = () => {
     const nameUser = inputValue;
     dispatch(changeUser(nameUser));
     validate();
-
   };
 
   const validate = () => {
     const name = inputValue;
 
     if (name === '') {
-      setMessageUser('Campo de usuário obrigatório*');
+      setError({ isVisible: true, message: 'Campo de usuário obrigatório!' });
     } else {
       navigation.navigate('Dashboard');
     }
@@ -55,13 +58,21 @@ const Login = () => {
       <ContainerLogin>
         <LabelInput>Nome</LabelInput>
         <InputField onChangeText={handleChange} />
-        <ErrorFieldContainer>
-          <ErrorField>{messageUser}</ErrorField>
-        </ErrorFieldContainer>
+      
         <ButtonLogin onPress={() => handleSubmit()}>
           <ButtonText>Entrar</ButtonText>
         </ButtonLogin>
       </ContainerLogin>
+      {/* <ErrorFieldContainer> */}
+        <Snackbar
+        visible={error.isVisible}
+        onDismiss={() => setError({
+          ...error,
+          isVisible: false
+        })}>
+        {error.message}
+      </Snackbar>
+        {/* </ErrorFieldContainer> */}
     </Container>
   );
 };

@@ -60,9 +60,9 @@ export default function Routes() {
           name="NewPost"
           component={NewPost}
           options={{
-            headerTransparent: true,
+            headerTransparent: false,
             headerTitle: () => <Header />,
-            headerBackTitleVisible: false,
+            headerBackTitleVisible: true,
             headerTitleAlign: 'center',
             headerBackImage: () => (
               <FeatherIcon name="chevron-left" size={24} color="#f3f9ff" />

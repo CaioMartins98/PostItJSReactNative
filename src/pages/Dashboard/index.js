@@ -1,7 +1,13 @@
-import React, { useState } from 'react';
-import { View, Text } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { View, Text, FlatList, ScrollView } from 'react-native';
 import EmptyPost from '../../components/EmptyPost';
-import { ButtonContainer, ButtonField, ButtonText, Container } from './styles';
+import {
+  ButtonContainer,
+  ButtonField,
+  ButtonText,
+  Container,
+  ContainerScroll,
+} from './styles';
 import NewPostIcon from '../../assets/NewPost.png';
 import { useNavigation } from '@react-navigation/native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
@@ -9,20 +15,27 @@ import Posts from '../../components/Posts';
 import NewPost from '../../components/NewPost';
 import dateCurrentFormat from '../../utils/dateCurentFormat';
 import { useDispatch, useSelector } from 'react-redux';
-import { addText, addTitle } from '../../redux/userSlice';
+import { addPost, addText, addTitle } from '../../redux/userSlice';
+import { AsyncStorageLib as AsyncStorage } from '@react-native-async-storage/async-storage';
+
+import { Animated } from 'react-native';
+import KeyboardAvoidingView from 'react-native/Libraries/Components/Keyboard/KeyboardAvoidingView';
 
 const Dashboard = () => {
-  const { text } = useSelector((state) => state.text);
-  const { title } = useSelector((state) => state.title);
-  const { name } = useSelector((state) => state.user);
+  const { text, title, name, posts } = useSelector((state) => state.user);
+
+  const date = dateCurrentFormat();
+  const [toggleModal, setToggleModal] = useState(false);
 
   const [descriptionValue, setDescriptionValue] = useState('');
   const [titleValue, setTitleValue] = useState('');
 
+  //Organizar lista, tirar sujeira do cod.
+
   const [messageTitle, setMessageTitle] = useState('');
   const [messageText, setMessageText] = useState('');
 
-  const [posts, setPosts] = useState([]);
+  const [statePosts, setStatePosts] = useState([]);
 
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -36,19 +49,31 @@ const Dashboard = () => {
     const newPost = {
       titlePost: title,
       textPost: text,
-      datePost: dateCurrentFormat(),
+      datePost: date,
       namePost: name,
-      id: posts.length ? posts.length + 1 : 1,
+      id: statePosts.length ? statePosts.length + 1 : 1,
     };
 
-    setPosts((prevState) => [...prevState, newPost]);
-    validate();
+    const updatedPosts = [...statePosts, newPost];
+
+    setStatePosts(updatedPosts);
+    dispatch(addPost(updatedPosts));
+    // validate();
+
+    setToggleModal(false);
+  };
+
+  const handleCancel = () => {
+    setToggleModal(false);
   };
 
   const handleChangeTitle = (event) => {
+    setMessageTitle('');
     setTitleValue(event);
   };
+
   const handleChangeText = (event) => {
+    setMessageText('');
     setDescriptionValue(event);
   };
 
@@ -57,48 +82,76 @@ const Dashboard = () => {
     const title = titleValue;
 
     if (title === '' && text === '') {
+      setMessageTitle('Todos os campos devem ser preenchidos');
+      return;
+    } else if (title === '') {
       setMessageTitle('Campo de título obrigatório*');
-      setMessageText('Campo de descrição obrigatório*');
-    } else {
-      navigation.navigate('Dashboard');
+    } else if (text === '') {
+      setMessageText('Campo de texto obrigatório*');
     }
   };
 
-  console.log(posts);
+  const handleRemove = (id) => {
+    dispatch(removePost(id));
+  };
+
+  // useEffect(() => {
+  //   if (posts.length > 0) {
+  //     AsyncStorage.setItem('posts', JSON.stringify(posts));
+  //   }
+  // }, [posts]);
+
+  // useEffect(() => {
+  //   const localPosts = AsyncStorage.getItem('posts') || '';
+  //   dispatch(addPost(JSON.parse(localPosts)));
+  // }, []);
+  const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : 0;
   return (
     <>
-      <Container>
-        <Posts />
-        <ButtonContainer>
-          <ButtonField
-            onPress={() => {
-              navigation.navigate('NewPost');
-            }}
-          >
-            <ButtonText>Novo Post</ButtonText>
-            <FeatherIcon
-              name="edit-3"
-              color="#fff"
-              size={20}
-              style={{ marginLeft: 80 }}
-            />
-          </ButtonField>
-        </ButtonContainer>
-      </Container>
+      {toggleModal ? (
+        // <KeyboardAvoidingView
+        // style={{ flex: 1 }}
+        // behavior="position"
+        // keyboardVerticalOffset={60}
+        // >
+        <ScrollView>
+          <NewPost
+            handleChangeText={handleChangeText}
+            handleChangeTitle={handleChangeTitle}
+            handleSubmit={handleSubmit}
+            handleCancel={handleCancel}
+            messageTitle={messageTitle}
+            messageDescription={messageText}
+          />
+        </ScrollView>
+      ) : (
+        // </KeyboardAvoidingView>
+        <Container>
+          <ScrollView style={{ width: '100%' }}>
+            {posts.length > 0 ? (
+              posts
+                // .sort((a, b) => b. - a.)
+                .map((item, index) => {
+                  return <Posts key={index} postData={item} />;
+                })
+            ) : (
+              <EmptyPost />
+            )}
+            <View height={80} />
+          </ScrollView>
 
-      {/* <NewPost
-        handleChangeText={handleChangeText}
-        handleChangeTitle={handleChangeTitle}
-        handleSubmit={handleSubmit}
-      /> */}
-
-      {posts.map((item) => {
-        <Posts
-          nameP={item.namePost}
-          textP={item.textPost}
-          titleP={item.titlePost}
-        />;
-      })}
+          <ButtonContainer>
+            <ButtonField
+              onPress={() => {
+                setToggleModal(true);
+              }}
+            >
+              {/* <ButtonText>+</ButtonText> */}
+              <FeatherIcon name="plus" color="#fff" size={30} />
+            </ButtonField>
+          </ButtonContainer>
+        </Container>
+      )}
     </>
   );
 };

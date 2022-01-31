@@ -4,13 +4,14 @@ export const Container = styled.View`
   flex: 1;
   align-items: center;
   justify-content: center;
+
+  margin-top: 100px;
 `;
 
 export const AnimationContainer = styled.View`
   height: 200px;
   width: 360px;
   margin-bottom: 80px;
-  margin-top:125px;
 `;
 
 export const Description = styled.Text`
@@ -18,5 +19,4 @@ export const Description = styled.Text`
   font-size: 20px;
   color: #fff;
   text-align: center;
-
 `;
